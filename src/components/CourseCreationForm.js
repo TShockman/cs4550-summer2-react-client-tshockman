@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
-
 export default class CourseCreationForm extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired

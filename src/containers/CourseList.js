@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import CourseListItem from '../components/CourseListItem';
 import CourseCreationForm from '../components/CourseCreationForm';
 import CourseService from '../services/CourseServiceClient';
@@ -7,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 
 export default class CourseList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       courses: null
     };
@@ -35,6 +34,8 @@ export default class CourseList extends React.Component {
   };
 
   render() {
+    console.log('CourseList state', JSON.stringify(this.state, null, 2));
+    console.log('CourseList props', JSON.stringify(this.props, null, 2));
     const {courses} = this.state;
 
     return (
