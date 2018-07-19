@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ModuleListItem extends React.Component {
+export default class ModuleListItem extends React.PureComponent {
   static propTypes = {
     module: PropTypes.object.isRequired,
     selectModule: PropTypes.func.isRequired

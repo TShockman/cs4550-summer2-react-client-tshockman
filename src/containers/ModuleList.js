@@ -14,9 +14,8 @@ export default class ModuleList extends React.Component {
     super(props);
     this.moduleService = ModuleService.instance;
     this.state = {
-      courseId: this.props.courseId,
       modules: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -30,10 +29,11 @@ export default class ModuleList extends React.Component {
   };
 
   loadModules = () => {
-    this.moduleService.findAllModulesForCourse(this.state.courseId)
+    const {courseId} = this.props;
+    this.moduleService.findAllModulesForCourse(courseId)
       .then(modules => {
         const modulesWithCourseId = modules.map(module => {
-          module.course = {id: this.state.courseId};
+          module.course = {id: courseId};
           return module;
         });
         this.setState({modules: modulesWithCourseId});
@@ -48,14 +48,16 @@ export default class ModuleList extends React.Component {
     if (!modules.length) {
       list = 'No modules! Create one below.';
     } else {
-      list = modules.map(module => <ModuleListItem key={module.id} module={module} selectModule={selectModule}/>)
+      list = (
+        <ul className="nav flex-column">
+          {modules.map(module => <ModuleListItem key={module.id} module={module} selectModule={selectModule}/>)}
+        </ul>
+      );
     }
 
     return (
       <div>
-        <ul className="nav flex-column">
-          {list}
-        </ul>
+        {list}
         <ModuleCreationForm onSubmitModule={this.handleSubmit}/>
       </div>
     )

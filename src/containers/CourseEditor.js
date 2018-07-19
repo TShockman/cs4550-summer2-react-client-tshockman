@@ -2,6 +2,7 @@ import React from 'react';
 import _get from 'lodash/get';
 import CourseService from '../services/CourseServiceClient';
 import ModuleList from './ModuleList';
+import LessonTabs from './LessonTabs';
 
 export default class CourseEditor extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export default class CourseEditor extends React.Component {
       course: null,
       loading: null,
       loaded: null,
-      error: null
+      error: null,
+      selectedModuleId: null
     };
     this.courseService = CourseService.instance;
   }
@@ -42,13 +44,14 @@ export default class CourseEditor extends React.Component {
 
   selectModule = module => {
     console.log('Module selected', module);
+    this.setState({selectedModuleId: module.id});
   };
 
   render() {
     console.log(JSON.stringify(this.props))
     console.log(JSON.stringify(this.state))
 
-    const {course} = this.state;
+    const {course, selectedModuleId} = this.state;
 
     if (!course) {
       return <div><h1>Loading course editor</h1></div>;
@@ -62,7 +65,7 @@ export default class CourseEditor extends React.Component {
             <ModuleList courseId={course.id} selectModule={this.selectModule}/>
           </div>
           <div className="col-8">
-            <h2>lessons will go here</h2>
+            <LessonTabs courseId={course.id} moduleId={selectedModuleId}/>
           </div>
         </div>
       </div>
