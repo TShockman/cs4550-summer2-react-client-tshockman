@@ -53,7 +53,9 @@ export default class ModuleList extends React.Component {
 
     return (
       <div>
-        {list}
+        <ul className="nav flex-column">
+          {list}
+        </ul>
         <ModuleCreationForm onSubmitModule={this.handleSubmit}/>
       </div>
     )

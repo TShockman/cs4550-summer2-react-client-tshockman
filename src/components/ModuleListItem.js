@@ -16,9 +16,11 @@ export default class ModuleListItem extends React.Component {
     const {module} = this.props;
 
     return (
-      <div onClick={this.handleSelect}>
-        {module.title}
-      </div>
+      <li className="nav-item" onClick={this.handleSelect}>
+        <a className="nav-link" href="#">
+          {module.title}
+        </a>
+      </li>
     );
   }
 }
