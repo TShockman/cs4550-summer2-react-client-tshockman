@@ -7,7 +7,8 @@ import ModuleService from '../services/ModuleServiceClient';
 export default class ModuleList extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
-    selectModule: PropTypes.func.isRequired
+    selectModule: PropTypes.func.isRequired,
+    selectedModuleId: PropTypes.number
   };
 
   constructor(props) {
@@ -20,6 +21,12 @@ export default class ModuleList extends React.Component {
 
   componentDidMount() {
     this.loadModules();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.courseId !== this.props.courseId) {
+      this.loadModules();
+    }
   }
 
   handleSubmit = module => {
@@ -40,24 +47,26 @@ export default class ModuleList extends React.Component {
       });
   };
 
-  render() {
-    const {selectModule} = this.props;
+  getModuleList = () => {
+    const {selectModule, selectedModuleId} = this.props;
     const {modules} = this.state;
 
-    let list;
     if (!modules.length) {
-      list = 'No modules! Create one below.';
-    } else {
-      list = (
-        <ul className="nav flex-column">
-          {modules.map(module => <ModuleListItem key={module.id} module={module} selectModule={selectModule}/>)}
-        </ul>
-      );
+      return 'No modules! Create one below.';
     }
+    return(
+      <ul className="nav nav-pills flex-column">
+        {modules.map(module => {
+          return <ModuleListItem key={module.id} active={module.id === selectedModuleId} module={module} selectModule={selectModule}/>
+        })}
+      </ul>
+    );
+  };
 
+  render() {
     return (
       <div>
-        {list}
+        {this.getModuleList()}
         <ModuleCreationForm onSubmitModule={this.handleSubmit}/>
       </div>
     )

@@ -12,7 +12,8 @@ export default class CourseEditor extends React.Component {
       loading: null,
       loaded: null,
       error: null,
-      selectedModuleId: null
+      selectedModuleId: null,
+      selectedLessonId: null
     };
     this.courseService = CourseService.instance;
   }
@@ -62,7 +63,7 @@ export default class CourseEditor extends React.Component {
         <h1>Editing {course.title}</h1>
         <div className="row">
           <div className="col-4">
-            <ModuleList courseId={course.id} selectModule={this.selectModule}/>
+            <ModuleList courseId={course.id} selectedModuleId={selectedModuleId} selectModule={this.selectModule}/>
           </div>
           <div className="col-8">
             <LessonTabs courseId={course.id} moduleId={selectedModuleId}/>

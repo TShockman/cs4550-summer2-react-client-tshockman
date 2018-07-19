@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 export default class ModuleListItem extends React.PureComponent {
   static propTypes = {
     module: PropTypes.object.isRequired,
-    selectModule: PropTypes.func.isRequired
+    selectModule: PropTypes.func.isRequired,
+    active: PropTypes.bool
   };
 
   handleSelect = () => {
@@ -13,11 +14,11 @@ export default class ModuleListItem extends React.PureComponent {
   };
 
   render() {
-    const {module} = this.props;
+    const {module, active} = this.props;
 
     return (
       <li className="nav-item" onClick={this.handleSelect}>
-        <a className="nav-link" href="#">
+        <a className={`nav-link ${active && "active"}`} href="#">
           {module.title}
         </a>
       </li>
