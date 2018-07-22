@@ -3,8 +3,14 @@ import _get from 'lodash/get';
 import CourseService from '../services/CourseServiceClient';
 import ModuleList from './ModuleList';
 import LessonTabs from './LessonTabs';
+import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 
 export default class CourseEditor extends React.Component {
+  static propTypes = {
+    user: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -48,11 +54,18 @@ export default class CourseEditor extends React.Component {
     this.setState({selectedModuleId: module.id});
   };
 
-  render() {
-    console.log(JSON.stringify(this.props))
-    console.log(JSON.stringify(this.state))
+  selectLesson = lesson => {
+    console.log('Lesson selected', lesson);
+    this.setState({selectedLessonId: lesson.id});
+  };
 
-    const {course, selectedModuleId} = this.state;
+  render() {
+    const {user} = this.props;
+    if (!user) {
+      return <Redirect to="/login"/>;
+    }
+
+    const {course, selectedModuleId, selectedLessonId} = this.state;
 
     if (!course) {
       return <div><h1>Loading course editor</h1></div>;
@@ -66,7 +79,7 @@ export default class CourseEditor extends React.Component {
             <ModuleList courseId={course.id} selectedModuleId={selectedModuleId} selectModule={this.selectModule}/>
           </div>
           <div className="col-8">
-            <LessonTabs courseId={course.id} moduleId={selectedModuleId}/>
+            <LessonTabs courseId={course.id} moduleId={selectedModuleId} selectedLessonId={selectedLessonId} selectLesson={this.selectLesson}/>
           </div>
         </div>
       </div>

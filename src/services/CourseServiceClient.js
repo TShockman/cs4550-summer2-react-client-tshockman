@@ -17,7 +17,7 @@ export default class CourseService {
   }
 
   createCourse(course) {
-    return fetch(COURSE_API_URL, {
+    return fetch(`${COURSE_API_URL}?ownerId=${course.owner.id}`, {
       body: JSON.stringify(course),
       headers: {
         'Content-Type': 'application/json'

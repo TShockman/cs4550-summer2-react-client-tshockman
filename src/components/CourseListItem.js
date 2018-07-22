@@ -15,9 +15,13 @@ export default class CourseListItem extends React.Component {
 
   render() {
     const {course} = this.props;
+
+    console.log('Rendering course list item for course', JSON.stringify(course));
     return (
       <li className="list-group-item">
-        {course.title}
+        <span>{course.title}</span>
+        <span>{course.owner.username}</span>
+        <span>{course.modified}</span>
         <span className="float-right">
           <button onClick={this.handleDelete}><i className="fa fa-trash"/></button>
           <Link to={`/courses/${course.id}`}>
