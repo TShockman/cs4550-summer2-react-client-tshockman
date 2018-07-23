@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ConfirmModal from './ConfirmModal';
 
 export default class LessonTabsItem extends React.PureComponent {
   static propTypes = {
@@ -10,6 +11,10 @@ export default class LessonTabsItem extends React.PureComponent {
   handleSelect = () => {
     const {lesson, selectLesson} = this.props;
     selectLesson(lesson);
+  };
+
+  deleteLesson = () => {
+    console.log('Deleting lesson', this.props.lesson);
   };
 
   render() {

@@ -20,7 +20,13 @@ export default class ModuleList extends React.Component {
   }
 
   componentDidMount() {
-    this.loadModules();
+    this.loadModules()
+      .then(() => {
+        const {modules} = this.state;
+        if (modules.length) {
+          this.props.selectModule(modules[0]);
+        }
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -37,13 +43,23 @@ export default class ModuleList extends React.Component {
 
   loadModules = () => {
     const {courseId} = this.props;
-    this.moduleService.findAllModulesForCourse(courseId)
+    return this.moduleService.findAllModulesForCourse(courseId)
       .then(modules => {
         const modulesWithCourseId = modules.map(module => {
           module.course = {id: courseId};
           return module;
         });
         this.setState({modules: modulesWithCourseId});
+      });
+  };
+
+  deleteModule = module => {
+    const {selectModule} = this.props;
+    this.moduleService.deleteModule(module)
+      .then(this.loadModules)
+      .then(() => {
+        const {modules} = this.state;
+        selectModule(modules.find(search => search.id !== module.id));
       });
   };
 
@@ -57,7 +73,7 @@ export default class ModuleList extends React.Component {
     return(
       <ul className="nav nav-pills flex-column">
         {modules.map(module => {
-          return <ModuleListItem key={module.id} active={module.id === selectedModuleId} module={module} selectModule={selectModule}/>
+          return <ModuleListItem key={module.id} active={module.id === selectedModuleId} module={module} selectModule={selectModule} deleteModule={this.deleteModule}/>
         })}
       </ul>
     );

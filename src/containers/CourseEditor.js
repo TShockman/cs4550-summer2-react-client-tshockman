@@ -5,6 +5,7 @@ import ModuleList from './ModuleList';
 import LessonTabs from './LessonTabs';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
+import LessonEdit from './LessonEdit';
 
 export default class CourseEditor extends React.Component {
   static propTypes = {
@@ -51,7 +52,7 @@ export default class CourseEditor extends React.Component {
 
   selectModule = module => {
     console.log('Module selected', module);
-    this.setState({selectedModuleId: module.id});
+    this.setState({selectedModuleId: module && module.id});
   };
 
   selectLesson = lesson => {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LessonService from '../services/LessonServiceClient';
 import LessonTabsItem from '../components/LessonTabsItem';
 import LessonCreationForm from '../components/LessonCreationForm';
+import LessonEdit from './LessonEdit';
 
 export default class LessonTabs extends React.Component {
   static propTypes = {
@@ -40,7 +41,7 @@ export default class LessonTabs extends React.Component {
 
   loadLessons = () => {
     const {courseId, moduleId} = this.props;
-    this.lessonService.findAllLessonsForModule(courseId, moduleId)
+    return this.lessonService.findAllLessonsForModule(courseId, moduleId)
       .then(lessons => {
         const lessonsWithCourseAndModule = lessons.map(lesson => {
           lesson.course = {id: courseId};
@@ -48,6 +49,7 @@ export default class LessonTabs extends React.Component {
           return lesson;
         });
         this.setState({lessons: lessonsWithCourseAndModule});
+        return lessonsWithCourseAndModule;
       });
   };
 
@@ -71,11 +73,28 @@ export default class LessonTabs extends React.Component {
     );
   };
 
+  deleteLesson = lesson => {
+    const {selectLesson} = this.props;
+    this.lessonService.deleteLesson(lesson)
+      .then(this.loadLessons)
+      .then(lessons => {
+        if (lessons.length) {
+          selectLesson(lessons[0])
+        }
+      });
+  };
+
   render() {
+    const {lessons} = this.state;
+    const {selectedLessonId} = this.props;
+
+    const currentLesson = lessons.find(lesson => lesson.id === selectedLessonId);
+
     return (
       <div>
         <LessonCreationForm onSubmitLesson={this.handleCreate}/>
         {this.getLessonList()}
+        <LessonEdit lesson={currentLesson} deleteLesson={this.deleteLesson}/>
       </div>
     )
 
