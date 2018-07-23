@@ -11,12 +11,12 @@ export default class CourseManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: window.localStorage.getItem('courseManagerUser')
+      user: JSON.parse(window.localStorage.getItem('courseManagerUser'))
     }
   }
 
   setUser = user => {
-    window.localStorage.setItem('courseManagerUser', user);
+    window.localStorage.setItem('courseManagerUser', JSON.stringify(user));
     this.setState({user});
   };
 
