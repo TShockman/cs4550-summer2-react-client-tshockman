@@ -53,10 +53,12 @@ export default class CourseList extends React.Component {
         <CourseCreationForm onSubmit={this.handleSubmit} user={user}/>
         <Table className="border">
           <thead>
-            <th>Title</th>
-            <th>Owner</th>
-            <th>Last Modified</th>
-            <th>Actions</th>
+            <tr>
+              <th>Title</th>
+              <th>Owner</th>
+              <th>Last Modified</th>
+              <th>Actions</th>
+            </tr>
           </thead>
           {courses && courses.length
             ? <tbody>

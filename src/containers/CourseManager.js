@@ -11,16 +11,18 @@ export default class CourseManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: window.localStorage.getItem('courseManagerUser')
     }
   }
 
   setUser = user => {
-    this.setState({user})
+    window.localStorage.setItem('courseManagerUser', user);
+    this.setState({user});
   };
 
   logout = () => {
-    this.setUser(null)
+    window.localStorage.removeItem('courseManagerUser');
+    this.setState({user: null});
   };
 
   render() {
@@ -34,8 +36,8 @@ export default class CourseManager extends React.Component {
             <Switch>
               <Route exact path="/courses" render={props => <CourseList {...props} user={user}/>}/>
               <Route path="/courses/:courseId" render={props => <CourseEditor {...props} user={user}/>}/>
-              <Route path="/login/" render={props => <Login {...props} setUser={this.setUser}/>}/>
-              <Redirect to="/login"/>
+              <Route path="/login" render={props => <Login {...props} setUser={this.setUser}/>}/>
+              <Redirect to="/courses"/>
             </Switch>
           </div>
         </div>
