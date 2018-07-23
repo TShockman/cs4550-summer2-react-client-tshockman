@@ -4,8 +4,7 @@ import CourseListItem from '../components/CourseListItem';
 import CourseCreationForm from '../components/CourseCreationForm';
 import CourseService from '../services/CourseServiceClient';
 import {Redirect} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
+import {Table} from 'reactstrap';
 
 export default class CourseList extends React.Component {
   static propTypes = {
@@ -52,17 +51,19 @@ export default class CourseList extends React.Component {
     return (
       <div className="container-fluid">
         <CourseCreationForm onSubmit={this.handleSubmit} user={user}/>
-        <div>
-          <span>Title</span>
-          <span>Owner</span>
-          <span>Last Modified</span>
-          <span>Actions</span>
-        </div>
-        <ul className="list-group">
+        <Table className="border">
+          <thead>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Last Modified</th>
+            <th>Actions</th>
+          </thead>
           {courses && courses.length
-            ? courses.map(course => <CourseListItem key={course.id} course={course} onDelete={this.handleDelete}/>)
-            : <h3>No courses yet. Add a course to see it here.</h3>}
-        </ul>
+            ? <tbody>
+                {courses.map(course => <CourseListItem key={course.id} course={course} onDelete={this.handleDelete}/>)}
+              </tbody>
+            : <h3 className="m-4">No courses yet. Add a course above to see it here.</h3>}
+        </Table>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {Button} from 'reactstrap';
 
 export default class CourseListItem extends React.Component {
   static propTypes = {
@@ -18,17 +19,17 @@ export default class CourseListItem extends React.Component {
 
     console.log('Rendering course list item for course', JSON.stringify(course));
     return (
-      <li className="list-group-item">
-        <span>{course.title}</span>
-        <span>{course.owner.username}</span>
-        <span>{course.modified}</span>
-        <span className="float-right">
-          <button onClick={this.handleDelete}><i className="fa fa-trash"/></button>
+      <tr>
+        <td>{course.title}</td>
+        <td>{course.owner.username}</td>
+        <td>{new Date(course.modified).toLocaleString()}</td>
+        <td>
           <Link to={`/courses/${course.id}`}>
-            <button><i className="fa fa-pencil"/></button>
+            <Button><i className="fa fa-pencil"/></Button>
           </Link>
-        </span>
-      </li>
-    )
+          <Button color="danger" className="ml-2" onClick={this.handleDelete}><i className="fa fa-trash"/></Button>
+        </td>
+      </tr>
+    );
   }
 }

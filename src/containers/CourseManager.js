@@ -30,7 +30,7 @@ export default class CourseManager extends React.Component {
       <Router>
         <div>
           <CourseManagerNavbar logout={this.logout}/>
-          <div className="container-fluid">
+          <div className="container-fluid border p-2 m-2">
             <Switch>
               <Route exact path="/courses" render={props => <CourseList {...props} user={user}/>}/>
               <Route path="/courses/:courseId" render={props => <CourseEditor {...props} user={user}/>}/>
