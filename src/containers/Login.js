@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserService from '../services/UserServiceClient';
 import {Redirect} from 'react-router-dom';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
 
 export default class Login extends React.Component {
   static propTypes = {
@@ -41,7 +48,7 @@ export default class Login extends React.Component {
 
   handleInputChange = event => {
     const {target} = event;
-    this.setState({[target.name]: target.value});
+    this.setState({[target.id]: target.value});
   };
 
   render() {
@@ -51,17 +58,17 @@ export default class Login extends React.Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Username
-          <input name="username" placeholder="joe" type="text" value={username} onChange={this.handleInputChange}/>
-        </label>
-        <label>
-          Password
-          <input name="password" placeholder="****" type="password" value={password} onChange={this.handleInputChange}/>
-        </label>
-        <input type="submit" value="Login"/>
-      </form>
+      <Form>
+        <FormGroup>
+          <Label for="username">Username</Label>
+          <Input type="text" name="username" id="username" placeholder="Enter email..." onChange={this.handleInputChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input type="password" name="password" id="password" placeholder="********" onChange={this.handleInputChange}/>
+        </FormGroup>
+        <Button onClick={this.handleSubmit}>Submit</Button>
+      </Form>
     );
   }
 }
