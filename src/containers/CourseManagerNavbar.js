@@ -41,6 +41,9 @@ export default class CourseManagerNavbar extends React.Component {
                 <NavLink href="https://course-manager-shockman.herokuapp.com/" target="_blank">Admin Client</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="/courses">Course List</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="/login" onClick={this.props.logout}>Logout</NavLink>
               </NavItem>
             </Nav>
