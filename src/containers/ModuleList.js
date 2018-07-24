@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleCreationForm from '../components/ModuleCreationForm';
 import ModuleService from '../services/ModuleServiceClient';
+import {ListGroup} from 'reactstrap'
 
 export default class ModuleList extends React.Component {
   static propTypes = {
@@ -82,8 +83,10 @@ export default class ModuleList extends React.Component {
   render() {
     return (
       <div>
-        {this.getModuleList()}
         <ModuleCreationForm onSubmitModule={this.handleSubmit}/>
+        <ListGroup>
+          {this.getModuleList()}
+        </ListGroup>
       </div>
     )
   }

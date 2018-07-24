@@ -74,12 +74,12 @@ export default class CourseEditor extends React.Component {
 
     return (
       <div>
-        <h1>Editing {course.title}</h1>
-        <div className="row">
-          <div className="col-4">
+        <h1 className="border p-2">Editing: "{course.title}"</h1>
+        <div className="row border ml-0">
+          <div className="col-4 border m-1">
             <ModuleList courseId={course.id} selectedModuleId={selectedModuleId} selectModule={this.selectModule}/>
           </div>
-          <div className="col-8">
+          <div className="col-6 border m-1">
             <LessonTabs courseId={course.id} moduleId={selectedModuleId} selectedLessonId={selectedLessonId} selectLesson={this.selectLesson}/>
           </div>
         </div>

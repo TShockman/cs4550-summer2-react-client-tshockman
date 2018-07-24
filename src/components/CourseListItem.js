@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
+import ConfirmModal from './ConfirmModal';
 
 export default class CourseListItem extends React.Component {
   static propTypes = {
@@ -27,7 +28,10 @@ export default class CourseListItem extends React.Component {
           <Link to={`/courses/${course.id}`}>
             <Button><i className="fa fa-pencil"/></Button>
           </Link>
-          <Button color="danger" className="ml-2" onClick={this.handleDelete}><i className="fa fa-trash"/></Button>
+          <ConfirmModal title="Confirm Delete"
+                        message={`Are you sure you want to delete "${course.title}"?`}
+                        onConfirm={this.handleDelete}
+                        buttonContent={<i className="fa fa-trash"/>}/>
         </td>
       </tr>
     );

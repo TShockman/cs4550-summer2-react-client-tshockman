@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ConfirmModal from './ConfirmModal';
-
+import {ListGroupItem} from 'reactstrap'
 export default class ModuleListItem extends React.PureComponent {
   static propTypes = {
     module: PropTypes.object.isRequired,
@@ -24,16 +24,17 @@ export default class ModuleListItem extends React.PureComponent {
     const {module, active} = this.props;
 
     return (
-      <li className="nav-item" onClick={this.handleSelect}>
-        <a className={`nav-link ${active && "active"}`} href="#">
+      <ListGroupItem onClick={this.handleSelect} tag="button" action className="row" active={active}>
+        <span>
           {module.title}
-        </a>
-        <ConfirmModal
-          title="Confirm Delete"
-          message={`Are you sure you want to delete "${module.title}?"`}
-          onConfirm={this.handleDelete}
-          buttonContent={<i className="fa fa-trash"/>}/>
-      </li>
+          <ConfirmModal
+            className="float-right"
+            title="Confirm Delete"
+            message={`Are you sure you want to delete "${module.title}?"`}
+            onConfirm={this.handleDelete}
+            buttonContent={<i className="fa fa-trash"/>}/>
+        </span>
+      </ListGroupItem>
     );
   }
 }

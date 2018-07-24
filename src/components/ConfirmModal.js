@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Button} from 'react-bootstrap';
+import {
+  Modal,
+  Button,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
+} from 'reactstrap';
 
 export default class ConfirmModal extends React.PureComponent {
   static propTypes = {
@@ -34,28 +40,22 @@ export default class ConfirmModal extends React.PureComponent {
     const {title, message, buttonContent, className} = this.props;
     const {show} = this.state;
     return (
-      <div className={className}>
-        <Button className="btn btn-primary" onClick={this.handleShow}>
+      <span className={className}>
+        <Button color="danger" onClick={this.handleShow}>
           {buttonContent}
         </Button>
 
-        {show &&
-          <div className="static-modal">
-            <Modal.Dialog>
-              <Modal.Header>
-                <Modal.Title>{title}</Modal.Title>
-              </Modal.Header>
-
-              <Modal.Body>{message}</Modal.Body>
-
-              <Modal.Footer>
-                <Button onClick={this.handleClose}>Cancel</Button>
-                <Button bsStyle="primary" onClick={this.handleConfirm}>Confirm</Button>
-              </Modal.Footer>
-            </Modal.Dialog>
-          </div>
-        }
-      </div>
+        <Modal isOpen={show} toggle={this.handleShow}>
+          <ModalHeader toggle={this.handleShow}>{title}</ModalHeader>
+          <ModalBody>
+            {message}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.handleClose}>Cancel</Button>
+            <Button color="primary" onClick={this.handleConfirm}>Confirm</Button>
+          </ModalFooter>
+        </Modal>
+      </span>
     );
   }
 
