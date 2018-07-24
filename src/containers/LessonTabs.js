@@ -4,6 +4,7 @@ import LessonService from '../services/LessonServiceClient';
 import LessonTabsItem from '../components/LessonTabsItem';
 import LessonCreationForm from '../components/LessonCreationForm';
 import LessonEdit from './LessonEdit';
+import {Nav} from 'reactstrap';
 
 export default class LessonTabs extends React.Component {
   static propTypes = {
@@ -58,18 +59,18 @@ export default class LessonTabs extends React.Component {
     const {lessons} = this.state;
 
     if (!moduleId) {
-      return '<-- Please select or craete a module to get started.';
+      return '<-- Please select or create a module to get started.';
     }
 
     if (!lessons.length) {
       return 'No lessons! Create one.';
     }
     return (
-      <ul className="nav nav-tabs">
+      <Nav tabs>
         {lessons.map(lesson => {
          return <LessonTabsItem key={lesson.id} active={lesson.id === selectedLessonId} lesson={lesson} selectLesson={selectLesson}/>;
         })}
-      </ul>
+      </Nav>
     );
   };
 
@@ -88,13 +89,11 @@ export default class LessonTabs extends React.Component {
     const {lessons} = this.state;
     const {selectedLessonId} = this.props;
 
-    const currentLesson = lessons.find(lesson => lesson.id === selectedLessonId);
-
     return (
       <div>
         <LessonCreationForm onSubmitLesson={this.handleCreate}/>
         {this.getLessonList()}
-        <LessonEdit lesson={currentLesson} deleteLesson={this.deleteLesson}/>
+        <LessonEdit lessons={lessons} selectedLessonId={selectedLessonId} deleteLesson={this.deleteLesson}/>
       </div>
     )
 

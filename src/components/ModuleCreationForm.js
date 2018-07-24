@@ -41,7 +41,7 @@ export default class ModuleCreationForm extends React.Component {
         <Form inline>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label for="moduleTitle" className="mr-sm-2">Title</Label>
-            <Input type="text" id="moduleTitle" placeholder="Module title..." onChange={this.handleChange}/>
+            <Input value={this.state.title} type="text" id="moduleTitle" placeholder="Module title..." onChange={this.handleChange}/>
           </FormGroup>
           <Button onClick={this.handleSubmit}><i className="fa fa-plus"/></Button>
         </Form>

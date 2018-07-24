@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ConfirmModal from './ConfirmModal';
+import cx from 'classnames';
+import {NavItem, NavLink} from 'reactstrap';
 
 export default class LessonTabsItem extends React.PureComponent {
   static propTypes = {
     lesson: PropTypes.object.isRequired,
-    selectLesson: PropTypes.func.isRequired
+    selectLesson: PropTypes.func.isRequired,
+    active: PropTypes.bool
   };
 
   handleSelect = () => {
@@ -18,13 +20,13 @@ export default class LessonTabsItem extends React.PureComponent {
   };
 
   render() {
-    const {lesson} = this.props;
+    const {lesson, active} = this.props;
     return (
-      <li className="nav-item" onClick={this.handleSelect}>
-        <a className="nav-link" href="#">
+      <NavItem>
+        <NavLink className={cx({active})} onClick={this.handleSelect}>
           {lesson.title}
-        </a>
-      </li>
+        </NavLink>
+      </NavItem>
     );
   }
 }

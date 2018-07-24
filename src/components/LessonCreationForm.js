@@ -1,5 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button
+} from 'reactstrap';
+
+const DEFAULT_TITLE = 'Default Lesson Title';
 
 export default class LessonCreationForm extends React.Component {
   static propTypes = {
@@ -20,17 +29,21 @@ export default class LessonCreationForm extends React.Component {
   handleSubmit = () => {
     const {onSubmitLesson} = this.props;
     const {title} = this.state;
-    const lesson = {title};
+    const lesson = {title: title || DEFAULT_TITLE};
     onSubmitLesson(lesson);
     this.setState({title: ''});
   };
 
   render() {
     return (
-      <div className="container-fluid">
-        <span className="float-left">Title</span>
-        <input className="form-control" placeholder="Lesson 1.1.1" onChange={this.handleChange} value={this.state.title}/>
-        <button onClick={this.handleSubmit}><i className="fa fa-plus"/></button>
+      <div className="row border p-2 m-2">
+        <Form inline>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Label for="lessonTitle" className="mr-sm-2">Title</Label>
+            <Input value={this.state.title} type="text" id="lessonTitle" placeholder="Lesson title..." onChange={this.handleChange}/>
+          </FormGroup>
+          <Button onClick={this.handleSubmit}><i className="fa fa-plus"/></Button>
+        </Form>
       </div>
     );
   }

@@ -32,7 +32,7 @@ export default class CourseCreationForm extends React.Component {
     const {onSubmit} = this.props;
 
     onSubmit({title: title || DEFAULT_TITLE, owner: this.props.user});
-    this.setState({course: {title: ''}});
+    this.setState({title: ''});
   };
 
   render() {
@@ -41,7 +41,7 @@ export default class CourseCreationForm extends React.Component {
         <Form inline>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label for="courseTitle" className="mr-sm-2">Title</Label>
-            <Input type="text" id="courseTitle" placeholder="Course title..." onChange={this.handleChange}/>
+            <Input value={this.state.title} type="text" id="courseTitle" placeholder="Course title..." onChange={this.handleChange}/>
           </FormGroup>
           <Button onClick={this.handleSubmit}><i className="fa fa-plus"/></Button>
         </Form>
