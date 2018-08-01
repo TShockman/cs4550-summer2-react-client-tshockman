@@ -6,6 +6,11 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import CourseManagerNavbar from './CourseManagerNavbar';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {widgetReducer} from '../reducers/widgetReducer';
+
+const store = createStore(widgetReducer);
 
 export default class CourseManager extends React.Component {
   constructor(props) {
@@ -29,19 +34,21 @@ export default class CourseManager extends React.Component {
     const {user} = this.state;
 
     return (
-      <Router>
-        <div>
-          <CourseManagerNavbar logout={this.logout}/>
-          <div className="container-fluid border p-2 m-2">
-            <Switch>
-              <Route exact path="/courses" render={props => <CourseList {...props} user={user}/>}/>
-              <Route path="/courses/:courseId" render={props => <CourseEditor {...props} user={user}/>}/>
-              <Route path="/login" render={props => <Login {...props} setUser={this.setUser}/>}/>
-              <Redirect to="/courses"/>
-            </Switch>
+      <Provider store={store}>
+        <Router>
+          <div>
+            <CourseManagerNavbar logout={this.logout}/>
+            <div className="container-fluid border p-2 m-2">
+              <Switch>
+                <Route exact path="/courses" render={props => <CourseList {...props} user={user}/>}/>
+                <Route path="/courses/:courseId" render={props => <CourseEditor {...props} user={user}/>}/>
+                <Route path="/login" render={props => <Login {...props} setUser={this.setUser}/>}/>
+                <Redirect to="/courses"/>
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     );
   }
 }

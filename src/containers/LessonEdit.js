@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ConfirmModal from '../components/ConfirmModal';
 import {TabContent, TabPane} from 'reactstrap';
+import WidgetListContainer from './widget/WidgetListContainer';
 
 export default class LessonEdit extends React.Component {
   static propTypes = {
@@ -26,6 +27,7 @@ export default class LessonEdit extends React.Component {
       return (
         <TabPane tabId={lesson.id} key={lesson.id}>
           <div>Editing Lesson: {lesson.title}</div>
+          <WidgetListContainer/>
           <ConfirmModal
             title="Confirm Delete"
             message={`Are you sure you want to delete "${lesson.title}"?`}

@@ -1,0 +1,4 @@
+export const DELETE_WIDGET = 'DELETE_WIDGET';
+export const CREATE_WIDGET = 'CREATE_WIDGET';
+export const UPDATE_WIDGET = 'UPDATE_WIDGET';
+export const SAVE_WIDGETS = 'SAVE_WIDGETS';

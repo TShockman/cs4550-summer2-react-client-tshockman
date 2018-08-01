@@ -4,3 +4,4 @@ export const MODULE_API_URL = `${API_URL}/module`;
 export const LESSON_API_URL = `${API_URL}/lesson`;
 export const USER_API_URL = `${API_URL}/user`;
 export const LOGIN_API_URL = `${API_URL}/login`;
+export const WIDGET_API_URL = `${API_URL}/widget`;
