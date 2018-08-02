@@ -69,11 +69,11 @@ export default class Widget extends React.PureComponent {
             </Button>
           </Col>
         </Row>
-        {widget.type === 'HEADING' && <HeadingWidget updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
-        {widget.type === 'PARAGRAPH' && <ParagraphWidget updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
-        {widget.type === 'LIST' && <ListWidget updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
-        {widget.type === 'LINK' && <LinkWidget updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
-        {widget.type === 'IMAGE' && <ImageWidget updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
+        {widget.type === 'HEADING' && <HeadingWidget widget={widget} updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
+        {widget.type === 'PARAGRAPH' && <ParagraphWidget widget={widget} updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
+        {widget.type === 'LIST' && <ListWidget widget={widget} updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
+        {widget.type === 'LINK' && <LinkWidget widget={widget} updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
+        {widget.type === 'IMAGE' && <ImageWidget widget={widget} updateWidget={updateWidget} onlyPreview={onlyPreview}/>}
       </ListGroupItem>
     )
   }
