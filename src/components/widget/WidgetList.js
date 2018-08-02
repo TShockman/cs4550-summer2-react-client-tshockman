@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Row, Col, ListGroup, ListGroupItem} from 'reactstrap';
+import {Button, Row, Col, ListGroup, ButtonGroup} from 'reactstrap';
 import WidgetCreationForm from './WidgetCreationForm';
 import Widget from './Widget';
 
@@ -61,15 +61,15 @@ export default class WidgetList extends React.PureComponent {
 
     return (
       <div>
-        <Row>
+        <Row className="my-1">
           <Col>
             <h3>Widget List</h3>
           </Col>
           <Col>
-            <Button className="pull-right" onClick={this.handleSave}>Save</Button>
-          </Col>
-          <Col>
-            <Button className="pull-right" onClick={togglePreview} color={previewOnly ? 'success' : 'secondary'}>Toggle Preview</Button>
+            <ButtonGroup className="pull-right">
+              <Button onClick={togglePreview} color={previewOnly ? 'warning' : 'secondary'}>Toggle Preview</Button>
+              <Button color="success" onClick={this.handleSave}>Save</Button>
+            </ButtonGroup>
           </Col>
         </Row>
         <Row>

@@ -34,7 +34,7 @@ export default class ParagraphWidget extends React.PureComponent {
     return (
       <div>
         {!onlyPreview &&
-        <Row className="border">
+        <Row className="border pt-2">
           <Col>
             <Form>
               <FormGroup>
@@ -49,7 +49,7 @@ export default class ParagraphWidget extends React.PureComponent {
           </Col>
         </Row>
         }
-        <Row className="border">
+        <Row className="p-2 mt-2">
           <Col>
             {this.renderPreview()}
           </Col>

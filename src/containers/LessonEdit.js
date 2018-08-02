@@ -6,8 +6,8 @@ import WidgetListContainer from './widget/WidgetListContainer';
 
 export default class LessonEdit extends React.Component {
   static propTypes = {
-    selectedLessonId: PropTypes.string,
-    lessons: PropTypes.object,
+    selectedLessonId: PropTypes.number,
+    lessons: PropTypes.array,
     deleteLesson: PropTypes.func.isRequired
   };
 
@@ -26,12 +26,13 @@ export default class LessonEdit extends React.Component {
     return lessons.map(lesson => {
       return (
         <TabPane tabId={lesson.id} key={lesson.id}>
-          <Row>
+          <Row className="my-2">
             <Col>
               Editing Lesson: {lesson.title}
             </Col>
             <Col>
               <ConfirmModal
+                className="pull-right"
                 title="Confirm Delete"
                 message={`Are you sure you want to delete "${lesson.title}"?`}
                 onConfirm={this.getHandleDelete(lesson)}
