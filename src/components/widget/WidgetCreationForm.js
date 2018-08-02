@@ -12,7 +12,17 @@ export default class WidgetCreationForm extends React.PureComponent {
     const baseWidget = {
       id: Date.now(),
       type: 'HEADING',
-      size: 1
+      size: 1,
+      listItems: [],
+      listType: 'UNORDERED',
+      name: 'Default Widget Name',
+      text: '',
+      className: '',
+      style: '',
+      width: '',
+      height: '',
+      href: '',
+      src: ''
     };
     createWidget(baseWidget);
   };

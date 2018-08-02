@@ -18,7 +18,12 @@ export default class WidgetService {
 
   getWidgets(lessonId) {
     return fetch(`${LESSON_API_URL}/${lessonId}/widget`)
-      .then(result => result.json());
+      .then(result => result.json())
+      .then(widgets => widgets.map(widg => {
+        widg.listItems = JSON.parse(widg.listItems)
+        return widg;
+        })
+      );
   }
 
   deleteWidget(wid) {
@@ -31,6 +36,7 @@ export default class WidgetService {
   createWidget(lid, widget) {
     console.log('creating widget')
     const widgetToCreate = {...widget};
+    widgetToCreate.listItems = JSON.stringify(widgetToCreate.listItems);
     delete widgetToCreate.id;
     return fetch(`${LESSON_API_URL}/${lid}/widget`, {
       method: 'post',
@@ -43,12 +49,15 @@ export default class WidgetService {
 
   updateWidget(widget) {
     console.log('updating widget')
-    return fetch(`${WIDGET_API_URL}/${widget.id}`, {
+    const widgetToUpdate = {...widget};
+    widgetToUpdate.listItems = JSON.stringify(widgetToUpdate.listItems);
+
+    return fetch(`${WIDGET_API_URL}/${widgetToUpdate.id}`, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(widget)
+      body: JSON.stringify(widgetToUpdate)
     }).then(response => response.json());
   }
 }

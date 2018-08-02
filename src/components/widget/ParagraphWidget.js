@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 
-export default class HeadingWidget extends React.PureComponent {
+export default class ParagraphWidget extends React.PureComponent {
   static propTypes = {
     widget: PropTypes.object.isRequired,
     updateWidget: PropTypes.func.isRequired,
@@ -12,7 +12,7 @@ export default class HeadingWidget extends React.PureComponent {
   renderPreview = () => {
     const {widget} = this.props;
     let key = 0;
-    return widget.text && <div>{widget.text.split('\n').map(paragraph => <p key={key++}>{paragraph}</p>)}</div>;
+    return <div>{widget.text.split('\n').map(paragraph => <p key={key++}>{paragraph}</p>)}</div>;
   };
 
   handleUpdate = event => {
