@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Row, Col} from 'reactstrap';
+import {Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 
 export default class ImageWidget extends React.PureComponent {
   static propTypes = {
@@ -10,24 +10,47 @@ export default class ImageWidget extends React.PureComponent {
   };
 
   renderPreview = () => {
-
+    const {widget} = this.props;
+    return <img src={widget.src}/>
   };
 
+  handleUpdate = event => {
+    const {updateWidget, widget} = this.props;
+    const newWidget = {...widget};
+    switch (event.target.id) {
+      case 'imageSrc':
+        newWidget.src = event.target.value;
+        break;
+      case 'widgetName':
+        newWidget.name = event.target.value;
+        break;
+    }
+    updateWidget(newWidget);
+  };
   render() {
     const {widget, onlyPreview} = this.props;
 
     return (
       <div>
         {!onlyPreview &&
-        <Row>
+        <Row className="border">
           <Col>
-            IMAGE EDIT AREA
+            <Form>
+              <FormGroup>
+                <Label for="imageSrc">Image Source</Label>
+                <Input onChange={this.handleUpdate} type="text" id="imageSrc" placeholder="Image Source URL..." value={widget.src}/>
+              </FormGroup>
+              <FormGroup>
+                <Label for="widgetName">Widget Name</Label>
+                <Input onChange={this.handleUpdate} type="text" id="widgetName" placeholder="Widget name..." value={widget.name}/>
+              </FormGroup>
+            </Form>
           </Col>
         </Row>
         }
-        <Row>
+        <Row className="border">
           <Col>
-            PREVIEW AREA
+            {this.renderPreview()}
           </Col>
         </Row>
       </div>
