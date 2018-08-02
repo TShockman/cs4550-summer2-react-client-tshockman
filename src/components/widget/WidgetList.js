@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Row, Col, ListGroup, ListGroupItem} from 'reactstrap';
+import WidgetCreationForm from './WidgetCreationForm';
+import Widget from './Widget';
 
 export default class WidgetList extends React.PureComponent {
   static propTypes = {
@@ -9,19 +11,53 @@ export default class WidgetList extends React.PureComponent {
     createWidget: PropTypes.func.isRequired,
     updateWidget: PropTypes.func.isRequired,
     saveWidgets: PropTypes.func.isRequired,
+    fetchWidgets: PropTypes.func.isRequired,
+    previewOnly: PropTypes.bool.isRequired,
+    togglePreview: PropTypes.func.isRequired,
+    moveWidgetUp: PropTypes.func.isRequired,
+    moveWidgetDown: PropTypes.func.isRequired,
+    lessonId: PropTypes.number.isRequired
   };
 
+  componentDidMount = () => {
+    const {fetchWidgets, lessonId} = this.props;
+    if (lessonId) {
+      fetchWidgets(lessonId);
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    const {fetchWidgets, lessonId} = this.props;
+    const {lessonId: oldLessonId} = prevProps;
+    if (lessonId && lessonId !== oldLessonId) {
+      fetchWidgets(lessonId);
+    }
+  }
+
   getWidgetListItems = () => {
-    const {widgets} = this.props;
+    const {widgets, deleteWidget, updateWidget, previewOnly, moveWidgetUp, moveWidgetDown} = this.props;
     return widgets.map(widget => {
       return (
-        <ListGroupItem>WIDGET</ListGroupItem>
+        <Widget
+          key={widget.id}
+          onlyPreview={previewOnly}
+          widget={widget}
+          deleteWidget={deleteWidget}
+          updateWidget={updateWidget}
+          moveWidgetUp={moveWidgetUp}
+          moveWidgetDown={moveWidgetDown}
+        />
       );
     });
   };
 
+  handleSave = () => {
+    const {lessonId, saveWidgets} = this.props;
+    saveWidgets(lessonId);
+  };
+
   render() {
-    const {saveWidgets} = this.props;
+    const {previewOnly, togglePreview, lessonId, createWidget} = this.props;
 
     return (
       <div>
@@ -30,7 +66,10 @@ export default class WidgetList extends React.PureComponent {
             <h3>Widget List</h3>
           </Col>
           <Col>
-            <Button className="pull-right" onClick={saveWidgets}>Save</Button>
+            <Button className="pull-right" onClick={this.handleSave}>Save</Button>
+          </Col>
+          <Col>
+            <Button className="pull-right" onClick={togglePreview} color={previewOnly ? 'success' : 'secondary'}>Toggle Preview</Button>
           </Col>
         </Row>
         <Row>
@@ -40,6 +79,7 @@ export default class WidgetList extends React.PureComponent {
             </ListGroup>
           </Col>
         </Row>
+        <WidgetCreationForm createWidget={createWidget}/>
       </div>
     );
   }

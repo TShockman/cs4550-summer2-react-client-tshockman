@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ConfirmModal from '../components/ConfirmModal';
-import {TabContent, TabPane} from 'reactstrap';
+import {TabContent, TabPane, Row, Col} from 'reactstrap';
 import WidgetListContainer from './widget/WidgetListContainer';
 
 export default class LessonEdit extends React.Component {
@@ -21,18 +21,24 @@ export default class LessonEdit extends React.Component {
   };
 
   getTabPanes = () => {
-    const {lessons} = this.props;
+    const {lessons, selectedLessonId} = this.props;
 
     return lessons.map(lesson => {
       return (
         <TabPane tabId={lesson.id} key={lesson.id}>
-          <div>Editing Lesson: {lesson.title}</div>
-          <WidgetListContainer/>
-          <ConfirmModal
-            title="Confirm Delete"
-            message={`Are you sure you want to delete "${lesson.title}"?`}
-            onConfirm={this.getHandleDelete(lesson)}
-            buttonContent={<i className="fa fa-trash"/>}/>
+          <Row>
+            <Col>
+              Editing Lesson: {lesson.title}
+            </Col>
+            <Col>
+              <ConfirmModal
+                title="Confirm Delete"
+                message={`Are you sure you want to delete "${lesson.title}"?`}
+                onConfirm={this.getHandleDelete(lesson)}
+                buttonContent="Delete Lesson"/>
+            </Col>
+          </Row>
+          <WidgetListContainer lessonId={selectedLessonId}/>
         </TabPane>
       );
     })

@@ -6,11 +6,22 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import CourseManagerNavbar from './CourseManagerNavbar';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import {widgetReducer} from '../reducers/widgetReducer';
+import createSagaMiddleware from 'redux-saga';
+import widgetSaga from '../sagas/widgetSaga';
 
-const store = createStore(widgetReducer);
+// redux and redux-saga
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  widgetReducer,
+  compose(
+    applyMiddleware(sagaMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
+sagaMiddleware.run(widgetSaga);
 
 export default class CourseManager extends React.Component {
   constructor(props) {
