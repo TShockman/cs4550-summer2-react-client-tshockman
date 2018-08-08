@@ -14,13 +14,10 @@ import widgetSaga from '../sagas/widgetSaga';
 
 // redux and redux-saga
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-  widgetReducer,
-  compose(
-    applyMiddleware(sagaMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+const enhancer = window.__REDUX_DEVTOOLS_EXTENSION
+  ? compose(applyMiddleware(sagaMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__())
+  : applyMiddleware(sagaMiddleware);
+const store = createStore(widgetReducer, enhancer);
 sagaMiddleware.run(widgetSaga);
 
 export default class CourseManager extends React.Component {
